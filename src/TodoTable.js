@@ -15,6 +15,7 @@ function TodoTable(props) {
                             <tr key={index}>
                                 <td>{todo.date}</td>
                                 <td>{todo.desc}</td>
+                                <td><button onClick={() => deleteTodo(index)}>Delete</button></td>
                             </tr>
                         )}
                 </tbody>

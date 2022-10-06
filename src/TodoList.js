@@ -28,7 +28,6 @@ function TodoList() {
         <input type="submit" value="Add" />
       </form>
       <Todotable todos={todos}/>
-      <td><button onClick={() => deleteTodo(index)}>Delete</button></td>
     </div>
   );
 }
