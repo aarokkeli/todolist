@@ -3,8 +3,13 @@ import './App.css';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
-import Todotable from './TodoTable';
 import { useRef } from 'react';
+import { Button } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 function TodoList() {
   const [todo, setTodo] = useState({desc: '', date: '', priority:''});
@@ -37,13 +42,31 @@ function TodoList() {
   ]
 
   return (
-    <div className="App">
-        <p>Add todo:</p>
-        <input type="text" name="desc" value={todo.desc} onChange={inputChanged} />
-        <input type="text" name="date" value={todo.date} onChange={inputChanged} />
-        <input type="text" name="priority" value={todo.priority} onChange={inputChanged} />
-        <button onClick={addTodo}>Add</button>
-        <button onClick={deleteTodo}>Delete</button>
+    <div className='App'>
+       <h2>Todo list</h2>
+       <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
+       <LocalizationProvider dateAdapter={AdapterMoment}>
+         <DesktopDatePicker
+          label="Date"
+          inputFormat='DD/MM/YYYY'
+          value={todo.date}
+          onChange={inputChanged => setTodo({...todo, date: inputChanged})}
+          renderInput={(params) => <TextField {...params} />}
+          />
+          <TextField
+            label="Description"
+            variant="standard"
+            name="desc" value={todo.desc}
+            onChange={inputChanged} />
+          <TextField
+            label="Priority"
+            variant="standard"
+            name="priority" value={todo.priority}
+            onChange={inputChanged} />
+          <Button onClick={addTodo} variant="contained">Add</Button>
+          <Button onClick={deleteTodo} variant="contained">Delete</Button>
+        </LocalizationProvider>
+      </Stack>
 
       <div
         className="ag-theme-material"
